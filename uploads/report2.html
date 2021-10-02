@@ -1,0 +1,3144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MultiV ITR Report</title>
+<style>
+table {
+	width: 1000px;
+	border-collapse: collapse;
+	border-color: #dfdfdf;
+}
+
+<
+style type ="text /css">.table_title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.table_title {
+	color: #333;
+	font-weight: bold;
+}
+
+.table_subtitle {
+	font-size: medium;
+	font-weight: bold;
+}
+
+body p {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.w-text {
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+}
+
+.top {
+	font-weight: bold;
+	font-size: x-large;
+	color: #333;
+}
+
+.b_text {
+	font-size: 13px;
+	text-align: center;
+}
+
+.table_subtitle .b_text .b_text {
+	font-weight: normal;
+	text-align: left;
+	font-size: 13px;
+}
+
+.w_text{
+	font-size: 12px;
+}
+
+.b_text_top {
+	font-size: 12px;
+	right: auto;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+	<script>
+	var TEMP_UNIT_F = 0;
+	var TEMP_UNIT_C = 1;
+	var PRESSURE_UNIT_KPA = 0;
+	var PRESSURE_UNIT_PSI = 1;
+	var WEIGHT_UNIT_KG = 0;
+	var WEIGHT_UNIT_POUND = 1;
+	var MOOD_COOL = 1;
+	var MOOD_HEAT = 2;
+	var LANG_TYPE_KOR = 0;
+	var LANG_TYPE_ENG = 1;
+	
+	var langType = LANG_TYPE_ENG;
+	var tempLangStr = new String("ENG"); // input = KOR, ENG (대소문자 상관 없음)
+	if(tempLangStr.toUpperCase() == "ENG"){
+		langType = LANG_TYPE_ENG
+	}
+	
+	var tempUnitString = new String("C"); // input = F, C (대소문자 상관 없음)
+	var pressureUnitString = new String("kPa"); // input = KPA, PSI (대소문자 상관 없음)
+	var weightUnitString = new String("TEXT_UNIT_WEIGHT"); // input = KG, POUND (대소문자 상관 없음)
+
+	var tempUnit = TEMP_UNIT_C;
+	if(tempUnitString.toUpperCase() == "F"){
+		tempUnit = TEMP_UNIT_F;
+	}
+	
+	var pressureUnit = PRESSURE_UNIT_KPA;
+	if(pressureUnitString.toUpperCase() == "PSI"){
+		pressureUnit = PRESSURE_UNIT_PSI;
+	}
+	
+	var weightUnit = WEIGHT_UNIT_KG;
+	if(pressureUnitString.toUpperCase() == "POUND"){
+		weightUnit = WEIGHT_UNIT_POUND;
+	}
+	
+	var installerName = new String("울산동구 구강검진센터 3층(24마력-2)");
+	var installerInfo = new String("TEXT_INSTALLER_INFO");
+	var inspectorName = new String("(주)아이테크");
+	var inspectorInfo = new String("TEXT_INSPECTOR_INFO");
+	var managerName = new String("박정도");
+	var managerInfo = new String("TEXT_MANAGER_INFO");
+	var siteName = new String("울산동구 구강검진센터 3층(24마력-2)");
+	var siteInfo = new String("TEXT_SITE_INFO");
+	var modelType = new String("Multi V 5");
+	var userModelName = new String("RPUW12GX9E");
+	var writeDate = new String("2021년 07월 08일 13:07:52");
+	var odu1Version = new String("1.48.0 / 1.48.0");
+	var odu2Version = new String("TEXT_ODU2_VERSION_INFO");
+	var odu3Version = new String("TEXT_ODU3_VERSION_INFO");
+	var odu4Version = new String("TEXT_ODU4_VERSION_INFO");
+	
+	var oduNumber = new String("2");
+	var iduNumber = new String("10");
+	var hruNumber = new String("0");
+	var iduTemp = new Number("27.60");
+	var oduTemp = new Number("29.70");
+	var runCycleInfo = new Number("1"); // 1=냉방, 2=난방
+
+	var totalRefgVolume = new Number("29.80");
+	var refgResultVolume = new Number("-1.60");
+	var systemErrorInfo = new Number("0");
+	var refgErrorInfo = new Number("0");
+	var oduErrorInfo = new Number("0");
+	var iduErrorInfo = new Number("0");
+	
+	var tempErrorInfo = new Number("0");
+	var capacityErrorInfo  = new Number("0");
+	
+	var masterEEVErrorInfo = new Number("0");
+	var slave1EEVErrorInfo = new Number("0");
+	var slave2EEVErrorInfo = new Number("0");
+	var slave3EEVErrorInfo = new Number("0");
+	
+	var E05Reason = new Number("0");
+	var iduTempMin = new Number("26.50");
+	var iduTempMax = new Number("28.30");
+	var basicRef = new Number("17.00");
+	
+	var iduEevErrorArray = new Array(
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0",
+			"0");
+        var IduModelNameArray = new Array("",
+                                "", "",
+                                "", "",
+                                "", "",
+                                "", "",
+                                "", "ID_ITR_IDU_MODEL_NAME_11",
+                                "ID_ITR_IDU_MODEL_NAME_12", "ID_ITR_IDU_MODEL_NAME_13",
+                                "ID_ITR_IDU_MODEL_NAME_14", "ID_ITR_IDU_MODEL_NAME_15",
+                                "ID_ITR_IDU_MODEL_NAME_16", "ID_ITR_IDU_MODEL_NAME_17",
+                                "ID_ITR_IDU_MODEL_NAME_18", "ID_ITR_IDU_MODEL_NAME_19",
+                                "ID_ITR_IDU_MODEL_NAME_20", "ID_ITR_IDU_MODEL_NAME_21",
+                                "ID_ITR_IDU_MODEL_NAME_22", "ID_ITR_IDU_MODEL_NAME_23",
+                                "ID_ITR_IDU_MODEL_NAME_24", "ID_ITR_IDU_MODEL_NAME_25",
+                                "ID_ITR_IDU_MODEL_NAME_26", "ID_ITR_IDU_MODEL_NAME_27",
+                                "ID_ITR_IDU_MODEL_NAME_28", "ID_ITR_IDU_MODEL_NAME_29",
+                                "ID_ITR_IDU_MODEL_NAME_30", "ID_ITR_IDU_MODEL_NAME_31",
+                                "ID_ITR_IDU_MODEL_NAME_32", "ID_ITR_IDU_MODEL_NAME_33",
+                                "ID_ITR_IDU_MODEL_NAME_34", "ID_ITR_IDU_MODEL_NAME_35",
+                                "ID_ITR_IDU_MODEL_NAME_36", "ID_ITR_IDU_MODEL_NAME_37",
+                                "ID_ITR_IDU_MODEL_NAME_38", "ID_ITR_IDU_MODEL_NAME_39",
+                                "ID_ITR_IDU_MODEL_NAME_40", "ID_ITR_IDU_MODEL_NAME_41",
+                                "ID_ITR_IDU_MODEL_NAME_42", "ID_ITR_IDU_MODEL_NAME_43",
+                                "ID_ITR_IDU_MODEL_NAME_44", "ID_ITR_IDU_MODEL_NAME_45",
+                                "ID_ITR_IDU_MODEL_NAME_46", "ID_ITR_IDU_MODEL_NAME_47",
+                                "ID_ITR_IDU_MODEL_NAME_48", "ID_ITR_IDU_MODEL_NAME_49",
+                                "ID_ITR_IDU_MODEL_NAME_50", "ID_ITR_IDU_MODEL_NAME_51",
+                                "ID_ITR_IDU_MODEL_NAME_52", "ID_ITR_IDU_MODEL_NAME_53",
+                                "ID_ITR_IDU_MODEL_NAME_54", "ID_ITR_IDU_MODEL_NAME_55",
+                                "ID_ITR_IDU_MODEL_NAME_56", "ID_ITR_IDU_MODEL_NAME_57",
+                                "ID_ITR_IDU_MODEL_NAME_58", "ID_ITR_IDU_MODEL_NAME_59",
+                                "ID_ITR_IDU_MODEL_NAME_60", "ID_ITR_IDU_MODEL_NAME_61",
+                                "ID_ITR_IDU_MODEL_NAME_62", "ID_ITR_IDU_MODEL_NAME_63",
+                                "ID_ITR_IDU_MODEL_NAME_64");
+
+        var IduSerialNumArray = new Array("",
+                        "", "",
+                        "", "",
+                        "", "",
+                        "", "",
+                        "", "ID_ITR_IDU_SERIAL_NUM_11",
+                        "ID_ITR_IDU_SERIAL_NUM_12", "ID_ITR_IDU_SERIAL_NUM_13",
+                        "ID_ITR_IDU_SERIAL_NUM_14", "ID_ITR_IDU_SERIAL_NUM_15",
+                        "ID_ITR_IDU_SERIAL_NUM_16", "ID_ITR_IDU_SERIAL_NUM_17",
+                        "ID_ITR_IDU_SERIAL_NUM_18", "ID_ITR_IDU_SERIAL_NUM_19",
+                        "ID_ITR_IDU_SERIAL_NUM_20", "ID_ITR_IDU_SERIAL_NUM_21",
+                        "ID_ITR_IDU_SERIAL_NUM_22", "ID_ITR_IDU_SERIAL_NUM_23",
+                        "ID_ITR_IDU_SERIAL_NUM_24", "ID_ITR_IDU_SERIAL_NUM_25",
+                        "ID_ITR_IDU_SERIAL_NUM_26", "ID_ITR_IDU_SERIAL_NUM_27",
+                        "ID_ITR_IDU_SERIAL_NUM_28", "ID_ITR_IDU_SERIAL_NUM_29",
+                        "ID_ITR_IDU_SERIAL_NUM_30", "ID_ITR_IDU_SERIAL_NUM_31",
+                        "ID_ITR_IDU_SERIAL_NUM_32", "ID_ITR_IDU_SERIAL_NUM_33",
+                        "ID_ITR_IDU_SERIAL_NUM_34", "ID_ITR_IDU_SERIAL_NUM_35",
+                        "ID_ITR_IDU_SERIAL_NUM_36", "ID_ITR_IDU_SERIAL_NUM_37",
+                        "ID_ITR_IDU_SERIAL_NUM_38", "ID_ITR_IDU_SERIAL_NUM_39",
+                        "ID_ITR_IDU_SERIAL_NUM_40", "ID_ITR_IDU_SERIAL_NUM_41",
+                        "ID_ITR_IDU_SERIAL_NUM_42", "ID_ITR_IDU_SERIAL_NUM_43",
+                        "ID_ITR_IDU_SERIAL_NUM_44", "ID_ITR_IDU_SERIAL_NUM_45",
+                        "ID_ITR_IDU_SERIAL_NUM_46", "ID_ITR_IDU_SERIAL_NUM_47",
+                        "ID_ITR_IDU_SERIAL_NUM_48", "ID_ITR_IDU_SERIAL_NUM_49",
+                        "ID_ITR_IDU_SERIAL_NUM_50", "ID_ITR_IDU_SERIAL_NUM_51",
+                        "ID_ITR_IDU_SERIAL_NUM_52", "ID_ITR_IDU_SERIAL_NUM_53",
+                        "ID_ITR_IDU_SERIAL_NUM_54", "ID_ITR_IDU_SERIAL_NUM_55",
+                        "ID_ITR_IDU_SERIAL_NUM_56", "ID_ITR_IDU_SERIAL_NUM_57",
+                        "ID_ITR_IDU_SERIAL_NUM_58", "ID_ITR_IDU_SERIAL_NUM_59",
+                        "ID_ITR_IDU_SERIAL_NUM_60", "ID_ITR_IDU_SERIAL_NUM_61",
+                        "ID_ITR_IDU_SERIAL_NUM_62", "ID_ITR_IDU_SERIAL_NUM_63",
+                        "ID_ITR_IDU_SERIAL_NUM_64");
+
+        var HruModelNameArray = new Array("ID_ITR_HRU_MODEL_NAME_01",
+                                "ID_ITR_HRU_MODEL_NAME_02", "ID_ITR_HRU_MODEL_NAME_03",
+                                "ID_ITR_HRU_MODEL_NAME_04", "ID_ITR_HRU_MODEL_NAME_05",
+                                "ID_ITR_HRU_MODEL_NAME_06", "ID_ITR_HRU_MODEL_NAME_07",
+                                "ID_ITR_HRU_MODEL_NAME_08", "ID_ITR_HRU_MODEL_NAME_09",
+                                "ID_ITR_HRU_MODEL_NAME_10", "ID_ITR_HRU_MODEL_NAME_11",
+                                "ID_ITR_HRU_MODEL_NAME_12", "ID_ITR_HRU_MODEL_NAME_13",
+                                "ID_ITR_HRU_MODEL_NAME_14", "ID_ITR_HRU_MODEL_NAME_15",
+                                "ID_ITR_HRU_MODEL_NAME_16");
+
+        var HruSerialNumArray = new Array("ID_ITR_HRU_SERIAL_NUM_01",
+                        "ID_ITR_HRU_SERIAL_NUM_02", "ID_ITR_HRU_SERIAL_NUM_03",
+                        "ID_ITR_HRU_SERIAL_NUM_04", "ID_ITR_HRU_SERIAL_NUM_05",
+                        "ID_ITR_HRU_SERIAL_NUM_06", "ID_ITR_HRU_SERIAL_NUM_07",
+                        "ID_ITR_HRU_SERIAL_NUM_08", "ID_ITR_HRU_SERIAL_NUM_09",
+                        "ID_ITR_HRU_SERIAL_NUM_10", "ID_ITR_HRU_SERIAL_NUM_11",
+                        "ID_ITR_HRU_SERIAL_NUM_12", "ID_ITR_HRU_SERIAL_NUM_13",
+                        "ID_ITR_HRU_SERIAL_NUM_14", "ID_ITR_HRU_SERIAL_NUM_15",
+                        "ID_ITR_HRU_SERIAL_NUM_16");
+	
+	
+	var masterHighPressureMin = new Number("2173");
+	var masterHighPressureMax = new Number("2239");
+	var masterHighPressureAvg = new Number("2173");
+
+	var slave1HighPressureMin = new Number("2141");
+	var slave1HighPressureMax = new Number("2239");
+	var slave1HighPressureAvg = new Number("2141");
+	
+	var slave2HighPressureMin = new Number("0");
+	var slave2HighPressureMax = new Number("0");
+	var slave2HighPressureAvg = new Number("0");
+	
+	var slave3HighPressureMin = new Number("0");
+	var slave3HighPressureMax = new Number("0");
+	var slave3HighPressureAvg = new Number("0");
+	
+	var masterLowPressureMin = new Number("686");
+	var masterLowPressureMax = new Number("778");
+	var masterLowPressureAvg = new Number("686");
+
+	var slave1LowPressureMin = new Number("673");
+	var slave1LowPressureMax = new Number("778");
+	var slave1LowPressureAvg = new Number("673");
+	
+	var slave2LowPressureMin = new Number("0");
+	var slave2LowPressureMax = new Number("0");
+	var slave2LowPressureAvg = new Number("0");
+	
+	var slave3LowPressureMin = new Number("0");
+	var slave3LowPressureMax = new Number("0");
+	var slave3LowPressureAvg = new Number("0");
+	
+	
+	var masterEEVMin = new Number("32");
+	var masterEEVMax = new Number("32");
+	var masterEEVAvg = new Number("32");
+
+	var slave1EEVMin = new Number("32");
+	var slave1EEVMax = new Number("32");
+	var slave1EEVAvg = new Number("32");
+	
+	var slave2EEVMin = new Number("0");
+	var slave2EEVMax = new Number("0");
+	var slave2EEVAvg = new Number("0");
+	
+	var slave3EEVMin = new Number("0");
+	var slave3EEVMax = new Number("0");
+	var slave3EEVAvg = new Number("0");	
+	
+	var masterDischargeSHAvg = new Number("37.50");
+	var slave1DischargeSHAvg = new Number("37.50");
+	var slave2DischargeSHAvg = new Number("0.00");
+	var slave3DischargeSHAvg = new Number("0.00");
+	
+	var masterSutionSHAvg = new Number("19.00");
+	var slave1SutionSHAvg = new Number("19.10");
+	var slave2SutionSHAvg = new Number("0.00");
+	var slave3SutionSHAvg = new Number("0.00");
+	
+	var masterSuperCoolAvg = new Number("1.80");
+	var slave1SuperCoolAvg = new Number("1.80");
+	var slave2SuperCoolAvg = new Number("0.00");
+	var slave3SuperCoolAvg = new Number("0.00");
+	
+	var masterINV1DichargeTempAvg = new Number("74");
+	var slave1INV1DichargeTempAvg = new Number("75");
+	var slave2INV1DichargeTempAvg = new Number("300");
+	var slave3INV1DichargeTempAvg = new Number("300");
+	
+	var masterINV2DichargeTempAvg = new Number("300");
+	var slave1INV2DichargeTempAvg = new Number("300");
+	var slave2INV2DichargeTempAvg = new Number("300");
+	var slave3INV2DichargeTempAvg = new Number("300");
+	
+	
+	var masterINV1InputVoltageMin = new Number("380");
+	var masterINV1InputVoltageMax = new Number("380");
+	var masterINV1InputVoltageAvg = new Number("380");
+	
+	var slave1INV1InputVoltageMin = new Number("375");
+	var slave1INV1InputVoltageMax = new Number("375");
+	var slave1INV1InputVoltageAvg = new Number("375");
+	
+	var slave2INV1InputVoltageMin = new Number("0");
+	var slave2INV1InputVoltageMax = new Number("0");
+	var slave2INV1InputVoltageAvg = new Number("0");
+	
+	var slave3INV1InputVoltageMin = new Number("0");
+	var slave3INV1InputVoltageMax = new Number("0");
+	var slave3INV1InputVoltageAvg = new Number("0");
+	
+	
+	var masterINV1InputCurrentMin = new Number("6.60");
+	var masterINV1InputCurrentMax = new Number("7.00");
+	var masterINV1InputCurrentAvg = new Number("6.60");
+	
+	var slave1INV1InputCurrentMin = new Number("6.60");
+	var slave1INV1InputCurrentMax = new Number("7.00");
+	var slave1INV1InputCurrentAvg = new Number("6.60");
+	
+	var slave2INV1InputCurrentMin = new Number("0.00");
+	var slave2INV1InputCurrentMax = new Number("0.00");
+	var slave2INV1InputCurrentAvg = new Number("0.00");
+	
+	var slave3INV1InputCurrentMin = new Number("0.00");
+	var slave3INV1InputCurrentMax = new Number("0.00");
+	var slave3INV1InputCurrentAvg = new Number("0.00");
+	
+		
+	var masterINV1PhaseCurrentAvg = new Number("13.80");
+	var slave1INV1PhaseCurrentAvg = new Number("13.40");
+	var slave2INV1PhaseCurrentAvg = new Number("0.00");
+	var slave3INV1PhaseCurrentAvg = new Number("0.00");
+	
+		
+	var masterINV2PhaseCurrentAvg = new Number("0.00");
+	var slave1INV2PhaseCurrentAvg = new Number("0.00");
+	var slave2INV2PhaseCurrentAvg = new Number("0.00");
+	var slave3INV2PhaseCurrentAvg = new Number("0.00");
+	
+	var capacityM = new Number("12");
+	var capacityS1 = new Number("12");
+	var capacityS2 = new Number("0");
+	var capacityS3 = new Number("0");
+	
+	var odu1EEPVersion = new String("79.94.11 / 79.94.11");
+	var odu2EEPVersion = new String("TEXT_ODU2_EEPVERSION_INFO");
+	var odu3EEPVersion = new String("TEXT_ODU3_EEPVERSION_INFO");
+	var odu4EEPVersion = new String("TEXT_ODU4_EEPVERSION_INFO");
+	
+	var capacityRatio = new Number("94");
+	var iduCapaSum = new Number("228");
+	var systemError = new Number("0");
+	var errorUnit = new Number("63");
+
+        var SerialNumberM = new String("105KCHE0CL49");
+        var SerialNumberS1 = new String("105KCPY0CL48");
+        var SerialNumberS2 = new String("");
+        var SerialNumberS3 = new String("");
+
+        var ModelNameM = new String("RPUW12GX9E");
+        var ModelNameS1 = new String("RPUW12GX9E");
+        var ModelNameS2 = new String("");
+        var ModelNameS3 = new String("");
+        var LGMVVersionString = new String("1.0.8");
+	
+	// ITR TEXT, ID 입력 종료
+	
+	function cTof(tempC) {
+		f = (tempC * 1.8)+32;
+		var n = new Number(f);
+		if(n.toString().search(".") == 0){
+			return n.toFixed(1);
+		}
+		return n;
+	}
+	
+	function cTof_RATE(tempC) {
+		f = (tempC * 1.8);
+		var n = new Number(f);
+		if(n.toString().search(".") == 0){
+			return n.toFixed(1);
+		}
+		return n;
+	}
+	
+	function fToc(tempF) {
+		c = (tempF - 32.0)/1.8;
+		var n = new Number(c);
+		if(n.toString().search(".") == 0){
+			return n.toFixed(1);
+		
+		}
+		return n;
+	}
+	
+	function kpaToPsi(kpa) {
+		psi = (kpa * 0.145);
+		var n = new Number(psi);
+		if(n.toString().search(".") == 0){
+			return n.toFixed(1);
+		}
+		return n;
+	}
+	
+	function pressureValuePrint(value){
+		if(isNaN(value) == false){
+			if (pressureUnit == PRESSURE_UNIT_KPA) {
+				document.write(value);	
+			}else{
+				document.write(kpaToPsi(value));
+			}
+		}
+	}
+	
+	function tempValuePrint(value){
+		if(isNaN(value) == false){
+			if (tempUnit == TEMP_UNIT_C ) {
+				document.write(value);	
+			}else{
+				document.write(cTof(value));
+			}
+		}
+	}
+	
+	function tempValuePrintWithUnit(value){
+		if(isNaN(value) == false){
+			if (tempUnit == TEMP_UNIT_C ) {
+				document.write(value + " °C");	
+			}else{
+				document.write(cTof(value) + " °F");
+			}
+		}
+	}
+	
+	function tempRateValuePrint(value){
+		if(isNaN(value) == false){
+			if (tempUnit == TEMP_UNIT_C ) {
+				document.write(value);	
+			}else{
+				document.write(cTof_RATE(value));
+			}
+		}
+	}
+	
+	function numberValuePrint(value){
+		if(isNaN(value) == false){
+			document.write(value);	
+		}
+	}
+	
+	function textValuePrint(value){
+		var tempStr = String(value);
+		if(tempStr.search("TEXT") != 0){
+			document.write(tempStr);	
+		}
+	}
+	
+	function kgToPound(kg) {
+		f = (kg * 2.20462);
+		var n = new Number(f);
+		if(n.toString().search(".") == 0){
+			return n.toFixed(2); //<!-- LANG TYPE-->
+		}
+		return n;
+	}
+	
+</script>
+
+	<input type="hidden" id="_modelType" value="Multi V 5"> 
+	<input type="hidden" id="_siteName" value="울산동구 구강검진센터 3층(24마력-2)">
+	<input type="hidden" id="_userModelName" value="RPUW12GX9E">
+	<input type="hidden" id="_installerName" value="울산동구 구강검진센터 3층(24마력-2)">
+	<input type="hidden" id="_distributorName" value="TEXT_DISTRIBUTOR_NAME">
+	<input type="hidden" name="_modelCode" value="RPUW12GX9E">
+	<input type="hidden" name="_modelCode" value="RPUW12GX9E">
+	<input type="hidden" name="_modelCode" value="">
+	<input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_11">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_12">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_13">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_14">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_15">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_16">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_17">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_18">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_19">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_20">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_21">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_22">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_23">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_24">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_25">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_26">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_27">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_28">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_29">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_30">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_31">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_32">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_33">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_34">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_35">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_36">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_37">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_38">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_39">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_40">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_41">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_42">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_43">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_44">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_45">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_46">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_47">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_48">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_49">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_50">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_51">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_52">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_53">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_54">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_55">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_56">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_57">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_58">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_59">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_60">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_61">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_62">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_63">
+        <input type="hidden" name="_modelCode" value="ID_ITR_IDU_MODEL_NAME_64">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_01">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_02">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_03">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_04">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_05">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_06">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_07">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_08">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_09">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_10">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_11">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_12">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_13">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_14">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_15">
+        <input type="hidden" name="_modelCode" value="ID_ITR_HRU_MODEL_NAME_16">
+	<input type="hidden" name="_serialNo" value="105KCHE0CL49">
+	<input type="hidden" name="_serialNo" value="105KCPY0CL48">
+	<input type="hidden" name="_serialNo" value="">
+	<input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_11">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_12">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_13">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_14">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_15">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_16">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_17">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_18">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_19">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_20">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_21">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_22">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_23">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_24">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_25">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_26">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_27">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_28">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_29">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_30">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_31">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_32">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_33">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_34">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_35">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_36">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_37">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_38">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_39">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_40">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_41">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_42">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_43">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_44">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_45">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_46">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_47">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_48">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_49">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_50">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_51">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_52">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_53">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_54">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_55">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_56">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_57">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_58">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_59">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_60">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_61">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_62">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_63">
+        <input type="hidden" name="_serialNo" value="ID_ITR_IDU_SERIAL_NUM_64">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_01">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_02">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_03">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_04">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_05">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_06">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_07">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_08">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_09">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_10">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_11">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_12">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_13">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_14">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_15">
+        <input type="hidden" name="_serialNo" value="ID_ITR_HRU_SERIAL_NUM_16">
+
+	
+	<h1 class="top">
+        <script>
+        	if(langType == LANG_TYPE_KOR){
+                document.write("멀티 V 시운전 보고서");	//<!-- LANG TYPE DONE-->
+        	}
+        	else{
+                document.write("Multi V Test Run Report ");
+        	}
+        </script>
+    </h1>
+	<table width="300" cellpadding="0" cellspacing="0"
+		style="border-collapse: collapse; font-size: smaller; color: #333;"
+		rules="all">
+		<tr></tr>
+        <tr>
+			<td height="10" colspan="18" align="right" bordercolor="white"><span class="b_text">
+				<script>
+				    document.write("LGMV ver : ");
+                    textValuePrint(LGMVVersionString);
+				</script>
+				</span>
+			</td>
+		</tr>
+        <tr>
+
+		</tr>
+		<tr>
+			<td height="30" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("모델타입");
+					}
+					else{
+						textValuePrint("Model type");
+					}
+				</script></td> <!-- LANG TYPE DONE-->
+			<td height="30" colspan="4" align="center" bgcolor="#ffffff"
+				class="b-text">
+				<script>
+					textValuePrint(modelType);	
+				</script>
+				</td>
+			<td height="30" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("모델명");
+					}
+					else{
+						textValuePrint("Model Name");
+					}
+				</script>
+				</td> <!-- LANG TYPE DONE-->
+			<td height="30" colspan="4" align="center" bgcolor="#ffffff"
+				class="b-text">
+				<script>
+					textValuePrint(userModelName);	
+				</script>
+				
+				</td>
+			<td height="30" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("발행일");
+					}
+					else{
+						textValuePrint("The date of print");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="30" colspan="4" align="center" bgcolor="#ffffff"
+				class="b-text">
+				<script>
+					textValuePrint(writeDate);	
+				</script>
+				</td>
+		</tr>
+
+
+		<tr>
+			<td height="18" colspan="18"><p class="table_subtitle">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("설치정보");
+					}
+					else{
+						textValuePrint("Installation Information");
+					}
+				</script>
+			</p> <!-- LANG TYPE DONE-->
+				<script>
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="18" colspan="2" align="center" bgcolor="#c40452">&nbsp;</td>
+			<td height="18" colspan="2" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("이름");
+					}
+					else{
+						textValuePrint("Name");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="18" colspan="7" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("회사명/주소");
+					}
+					else{
+						textValuePrint("Company Name & Address");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="18" colspan="7" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("제품구성");
+					}
+					else{
+						textValuePrint("Product");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("설치");
+					}
+					else{
+						textValuePrint("Installation");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="2" align="center">
+				<script>
+					textValuePrint(installerName);	
+				</script>
+			</td>
+			<td height="24" colspan="7" align="center">
+				<script>
+					textValuePrint(installerInfo);	
+				</script>
+			</td>
+			<td height="24" rowspan="2" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외기정보 (HP)");
+					}
+					else{
+						textValuePrint("ODU Info (HP)");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="1" align="center" bgcolor="#e6e7e8"
+				class="b_text">M</td>
+			<td height="24" colspan="2" align="center">
+				<script>
+					numberValuePrint(capacityM);	
+				</script>
+			</td>
+			<td height="24" colspan="1" align="center" bgcolor="#e6e7e8"
+			class="b_text">S1</td>
+			<td height="24" colspan="1" align="center">
+				<script>
+					numberValuePrint(capacityS1);	
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text"></td>
+			<td height="24" colspan="9" align="center" class="b_text">
+			</td>
+			<td height="24" colspan="1" align="center" bgcolor="#e6e7e8"
+				class="b_text">S2</td>
+			<td height="24" colspan="2" align="center">
+				<script>
+					numberValuePrint(capacityS2);	
+				</script>
+			</td>
+			<td height="24" colspan="1" align="center" bgcolor="#e6e7e8"
+			class="b_text">S3</td>
+			<td height="24" colspan="1" align="center">
+				<script>
+					numberValuePrint(capacityS3);	
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">CIQ</td>
+			<td height="24" colspan="2" align="center" class="b_text">
+				<script>
+					textValuePrint(inspectorName);	
+				</script>
+			</td>
+			<td height="24" colspan="7" align="center">
+				<script>
+					textValuePrint(inspectorInfo);	
+				</script>
+			</td>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실내기");
+					}
+					else{
+						textValuePrint("IDU");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="5" align="center">
+				<script>
+					numberValuePrint(iduNumber);
+					if(langType == LANG_TYPE_KOR){
+						document.write(" 대"); //<!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write(" EA");
+					}
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("관리");
+					}
+					else{
+						textValuePrint("Supervisor");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="2" align="center">
+				<script>
+					textValuePrint(managerName);	
+				</script></td>
+			<td height="24" colspan="7" align="center">
+				<script>
+					textValuePrint(managerInfo);	
+				</script>
+			</td>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("분배기");
+					}
+					else{
+						textValuePrint("HRU");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="5" align="center">
+				<script>
+					numberValuePrint(hruNumber);
+					if(langType == LANG_TYPE_KOR){
+						document.write(" 대"); //<!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write(" EA");
+					}
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("현장");
+					}
+					else{
+						textValuePrint("Site");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="2" align="center">
+				<script>
+					textValuePrint(siteName);
+				</script>
+			</td>
+			<td height="24" colspan="7" align="center">
+				<script>
+					textValuePrint(siteInfo);
+				</script>
+			</td>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("총냉매량");
+					}
+					else{
+						textValuePrint("Total refrigerant");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="5" align="center">
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						numberValuePrint(totalRefgVolume)
+						document.write(" kg");	
+					} else {
+						numberValuePrint(kgToPound(totalRefgVolume))
+						document.write(" lbs");
+					}
+				</script>	
+			</td>
+		</tr>
+        <tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실내기 용량 합");
+					}
+					else{
+						textValuePrint("Total Idu Sum");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="9" align="center">
+				<script>
+					numberValuePrint(iduCapaSum);
+				</script>
+			</td>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("조합비 (%)");
+					}
+					else{
+						textValuePrint("Capacity Ration (%)");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="5" align="center">
+				<script>
+					numberValuePrint(capacityRatio);
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text"></td>
+			<td height="24" colspan="9" align="center">
+				<script>
+					
+				</script>
+			</td>
+			<td height="24" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("기본봉입냉매량");
+					}
+					else{
+						textValuePrint("Basic Ref.");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="24" colspan="5" align="center">
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						numberValuePrint(basicRef);
+						document.write(" kg");	
+					} else {
+						numberValuePrint(kgToPound(basicRef))
+						document.write(" lbs");
+						}
+				</script>
+			</td>
+		</tr>
+        <tr>
+            <td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("Main SW 버전");
+					}
+					else{
+						textValuePrint("Main SW Version");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="16" align="center">
+				<script>
+					if(odu1Version.search("TEXT") != 0){
+						document.write(odu1Version);
+					}
+					if(odu2Version.search("TEXT") != 0){
+						document.write("/");
+						document.write(odu2Version);
+					}
+					if(odu3Version.search("TEXT") != 0){
+						document.write("/");
+						document.write(odu3Version);
+					}
+					if(odu4Version.search("TEXT") != 0){
+						document.write("/");
+						document.write(odu4Version);
+					}
+				</script>
+			</td>	
+        </tr>
+        <tr>
+            <td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("EEPROM 버전");
+					}
+					else{
+						textValuePrint("EEPROM Version");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="16" align="center">
+				<script>
+					if(odu1Version.search("TEXT") != 0){
+						document.write(odu1EEPVersion);
+					}
+					if(odu2Version.search("TEXT") != 0){
+						document.write("/");
+						document.write(odu2EEPVersion);
+					}
+					if(odu3Version.search("TEXT") != 0){
+						document.write("/");
+						document.write(odu3EEPVersion);
+					}
+					if(odu4Version.search("TEXT") != 0){
+						document.write("/");
+						document.write(odu4EEPVersion);
+					}
+				</script>
+			</td>	
+        </tr>
+        <tr>
+		<tr>
+			<td height="10" colspan="18" align="left" valign="top"><span
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("*제품 구성정보가 실제 설치와 일치하는지 확인 바랍니다.");
+					}
+					else{
+						textValuePrint("*Please check the installation information with the actual products.");
+					}
+				</script></span>
+				<p class="table_subtitle">
+					<script>
+						if(langType == LANG_TYPE_KOR){
+							textValuePrint("시운전 조건");
+						}
+						else{
+							textValuePrint("ITR Conditions");
+						}
+					</script>
+				</p></td> <!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td height="18" colspan="2" align="center" bgcolor="#c40452">&nbsp;</td>
+			<td height="18" colspan="4" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("공기온도");
+					}
+					else{
+						textValuePrint("Air Temperature");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="18" colspan="5" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("기준치");
+					}
+					else{
+						textValuePrint("Standart");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="18" colspan="7" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("시운전 상태");
+					}
+					else{
+						textValuePrint("Status of ITR");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실내<br />(최소/평균/최대)");
+					}
+					else{
+						textValuePrint("Indoor<br />(Min/Avg/Max)");
+					}
+				</script>
+				</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="4" align="center">
+			<script>
+			    if (iduTempMin == 220.0)
+			        document.write("-")
+                else
+                    tempValuePrintWithUnit(iduTempMin)
+
+                document.write("/")
+
+                if (iduTemp == 220.0)
+                    document.write("-")
+                else
+                    tempValuePrintWithUnit(iduTemp)
+
+                document.write("/")
+                if (iduTempMax == 220.0)
+                    document.write("-")
+                else
+					tempValuePrintWithUnit(iduTempMax)
+			</script>	
+			</td>
+			<td height="25" colspan="5" align="center">
+				<p class="b_text">
+					<script>
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉방: 10°C ≤ 실내온도 ≤ 35°C<br/>난방: 10°C ≤ 실내온도 ≤ 32°C");	//<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Cooling: 10°C ≤ Indoor air ≤ 35°C<br/> Heating: 10°C ≤ Indoor air ≤ 32°C");
+							}
+							
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉방: "+cTof(10)+"°F ≤ 실내온도 ≤ "+cTof(35)+"°F<br/>난방: "+cTof(10)+"°F ≤ 실내온도 ≤ "+cTof(32)+"°F" );	//<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Cooling: "+cTof(10)+"°F ≤ Indoor air ≤ "+cTof(35)+"°F<br/>Heating: "+cTof(10)+"°F ≤ Indoor air ≤ "+cTof(32)+"°F" );
+							}
+						}
+					</script>
+				</p>
+			</td>
+			<td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("운전모드");
+					}
+					else{
+						textValuePrint("Operating Mode");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="5" align="center">
+				<script>
+					if (runCycleInfo == MOOD_COOL) {
+						if(langType == LANG_TYPE_KOR){
+							document.write("냉방 시운전");	//<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("ITR(Cooling)");
+						}
+					}else if (runCycleInfo == MOOD_HEAT) {
+						if(langType == LANG_TYPE_KOR){
+							document.write("난방 시운전" );	//<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("ITR(Heating)");
+						}
+					} else {
+						document.write("-" )	
+					}
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외");
+					}
+					else{
+						textValuePrint("Outdoor");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="4" align="center">
+				<script>
+				    if (oduTemp == 220.0)
+				        document.write("-")
+				    else
+					    tempValuePrintWithUnit(oduTemp);
+				</script>
+			</td>
+			<td height="25" colspan="5" align="center">
+				<p class="b_text">
+					<script>
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉방: -5°C ≤ 실외온도 ≤ 45°C<br/>난방: -15°C ≤ 실외온도 ≤ 35°C" );	//<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Cooling: -5°C ≤ Outdoor air ≤ 45°C<br/>Heating: -15°C ≤ Outdoor air ≤ 35°C" );
+							}
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉방: "+cTof(-5)+"°F ≤ 실외온도 ≤ "+cTof(45)+"°F<br/>난방: "+cTof(-15)+"°F ≤ 실외온도 ≤ "+cTof(35)+"°F" );	//<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Cooling: "+cTof(-5)+"°F ≤ Outdoor air ≤ "+cTof(45)+"°F<br/>Heating: "+cTof(-15)+"°F ≤ Outdoor air ≤ "+cTof(35)+"°F" );
+							}
+						}
+					</script>
+				</p>
+			</td>
+			<td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("시운전 에러정보");
+					}
+					else{
+						textValuePrint("ITR Error Information");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="5" align="center">
+				<script>
+				String.prototype.padFunction = function(padStr, len) {
+		            var str = this;
+		            while (str.length < len)
+		               str = padStr + str;
+		            return str;
+		        }
+				
+				if(systemError == 0 && systemErrorInfo == 0)
+					if(langType == LANG_TYPE_KOR){
+						document.write("정상");	//<!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write("Normal Operation");
+					}
+				else
+				{
+					var str =  systemErrorInfo + "";
+					
+					if(systemError == 0)
+						document.write("- / ");	
+					else
+					{
+						document.write("CH" + systemError);
+									
+						if(errorUnit == 0)
+							document.write("(M) / ");	
+						else if(errorUnit == 1)
+							document.write("(S1) / ");	
+						else if(errorUnit == 2)
+							document.write("(S2) / ");	
+						else if(errorUnit == 3)
+						    document.write("(S3) / ");
+						else
+						    document.write(" / ");
+					}
+					
+					if(systemErrorInfo == 0)
+						document.write("-");	
+					else
+						document.write("E" + str.padFunction("0", 2));
+						
+					if(systemErrorInfo == 5 && systemError == 0){
+						if(E05Reason == 1)
+							if(langType == LANG_TYPE_KOR){
+								document.write("<br/>토출과열도 미확보"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("<br/>Low superheat of compressor");
+							}
+						else if(E05Reason == 2)
+							if(langType == LANG_TYPE_KOR){
+								document.write("<br/>토출온도 상승 제한"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("<br/>Excessive increase of discharge temperature of compressor");
+							}
+						else if(E05Reason == 3)
+							if(langType == LANG_TYPE_KOR){
+								document.write("<br/>고압상승 제한"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("<br/>High pressure limit");
+							}
+						else if(E05Reason == 4)
+							if(langType == LANG_TYPE_KOR){
+								document.write("<br/>저압하강 제한"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("<br/>Low pressure limit");
+							}
+						else if(E05Reason == 5)
+							if(langType == LANG_TYPE_KOR){
+								document.write("<br/>인버터 Heatsink 온도상승"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("<br/>Excessive increase of inverter heatsink temperature");
+							}
+						else if(E05Reason == 6)
+							if(langType == LANG_TYPE_KOR){
+								document.write("<br/>실내기 팬제어 시간 초과"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("<br/>Indoor unit control operation timeout");
+							}
+                        else if(E05Reason == 7)
+                        	if(langType == LANG_TYPE_KOR){
+                                document.write("<br/>압축기 백업 감지"); //<!-- LANG TYPE DONE-->
+                            }
+                            else{
+                            	document.write("<br/>High compression ratio");
+                            }
+                    	}
+					}
+				}
+
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="25" colspan="2" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실내기 체크");
+					}
+					else{
+						textValuePrint("IDU Check");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="25" colspan="16" align="center">
+				<script>
+				    var firstError = false;
+				    var error = false;
+				    for (i = 0; i < 64; i++){
+				    	if (iduEevErrorArray[i] == "1")
+				    	{ 
+				    		error = true;
+				    		break;
+				    	}
+				    }
+					if((systemErrorInfo == 3 || (systemErrorInfo == 5 && E05Reason == 6)) && error == true){
+						if(langType == LANG_TYPE_KOR){
+						    document.write("실내기 설치환경 및 통신상태 확인 바랍니다."); //<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Check installation environment and communication status.");
+						}
+
+						for (i = 0; i < 64; i++){
+						    if (iduEevErrorArray[i] == "1") {
+						        if (firstError == false) {
+						            document.write("<br/>IDU " + (i + 1));
+						            firstError = true
+						        }
+						        else {
+						            document.write(", IDU " + (i + 1));
+						        }
+							}
+                        }
+
+					}
+					else {
+						document.write("-");
+					}
+				</script>
+			</td>
+			
+		</tr>
+		<tr>
+			<td height="18" colspan="18" align="left"><p
+					class="table_subtitle">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("시운전 결과");
+					}
+					else{
+						textValuePrint("ITR Result");
+					}
+				</script>
+				</p></td> <!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td height="20" colspan="6" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("냉매량");
+					}
+					else{
+						textValuePrint("refrigerant");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="20" colspan="6" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외기 EEV");
+					}
+					else{
+						textValuePrint("ODU EEV");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+			<td height="20" colspan="6" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실내기 EEV");
+					}
+					else{
+						textValuePrint("IDU EEV");
+					}
+				</script>
+			</td> <!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td height="50" colspan="6" align="center">
+			<script>
+				if(systemErrorInfo != 0  || systemError != 0)
+				{
+						document.write("-<br/>");
+				}
+				else
+				{
+					if(refgErrorInfo == 0){
+						if(langType == LANG_TYPE_KOR){
+							document.write("냉매량 정상 <br/>"); //<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("refrigerant Normal <br/>");
+						}
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 : " + refgResultVolume + "kg"+"<br/>"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Refrigerant : " + refgResultVolume + "kg"+"<br/>");
+							}
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 : " + kgToPound(refgResultVolume) + "lbs"+"<br/>"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Refrigerant : " + kgToPound(refgResultVolume) + "lbs"+"<br/>");
+							}
+						}
+					}else if(refgErrorInfo == 1){
+						if(langType == LANG_TYPE_KOR){
+							document.write("판단불가<br/>"); // <!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Not Measured<br/>");
+						}
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 : " + refgResultVolume + "kg"+"<br/>"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Refrigerant : " + refgResultVolume + "kg"+"<br/>");
+							}
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 : " + kgToPound(refgResultVolume) + "lbs"+"<br/>"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Refrigerant : " + kgToPound(refgResultVolume) + "lbs"+"<br/>");
+							}
+						}
+					}else if(refgErrorInfo == 2){
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 부족 : " + refgResultVolume + "kg"+"<br/>"+"추가 봉입 바랍니다"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Shortage of Refrigerant : " + refgResultVolume + "kg"+"<br/>"+"Add the refrigerant"); 
+							}
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 부족 : " + kgToPound(refgResultVolume) + "lbs"+"<br/>"+"추가 봉입 바랍니다"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Shortage of Refrigerant : " + kgToPound(refgResultVolume) + "lbs"+"<br/>"+"Add the refrigerant");
+							}
+						}
+					}else if(refgErrorInfo == 3){
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 과다 : " + refgResultVolume + "kg"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Overcharge of Refrigerant : " + refgResultVolume + "kg");
+							}
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 과다 : " + kgToPound(refgResultVolume) + "lbs"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Overcharge of Refrigerant : " + kgToPound(refgResultVolume) + "lbs");
+							}
+						}
+					}else if(refgErrorInfo == 4){
+						if(langType == LANG_TYPE_KOR){
+							document.write("판단불가(특수실내기조합)<br/>"); // <!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Not Measured (SIDU)<br/>");
+						}
+						if (tempUnit == TEMP_UNIT_C) {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 : " + refgResultVolume + "kg"+"<br/>"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Refrigerant : " + refgResultVolume + "kg"+"<br/>");
+							}
+						} else {
+							if(langType == LANG_TYPE_KOR){
+								document.write("냉매량 : " + kgToPound(refgResultVolume) + "lbs"+"<br/>"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Refrigerant : " + kgToPound(refgResultVolume) + "lbs"+"<br/>");
+							}
+						}
+					}else{
+						if(langType == LANG_TYPE_KOR){
+							document.write("판단불가"); // <!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Not Measured");
+						}
+					}
+				}
+			</script>
+			</td>
+			<td height="50" colspan="6" align="center">
+				<script>
+            		if (runCycleInfo != MOOD_HEAT || systemErrorInfo != 0 || systemError != 0) {
+						document.write("-")	
+					}else{
+						if(oduErrorInfo == 0){//실외기
+							if(langType == LANG_TYPE_KOR){
+								document.write("정상작동"); //<!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Normal Operation");
+							}
+						}
+						else if(oduErrorInfo == 1){//실외기
+							if(langType == LANG_TYPE_KOR){
+								document.write("점검 필요");	// 170802_added_FDD_review // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Need Inspection");
+							}
+						}
+						else if(oduErrorInfo == 2){//실외기
+							if(langType == LANG_TYPE_KOR){
+								document.write("판단불가"); // <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Not Measured");
+							}
+						}else{
+							if(langType == LANG_TYPE_KOR){
+								document.write("판단불가" );	// <!-- LANG TYPE DONE-->
+							}
+							else{
+								document.write("Not Measured");
+							}
+						}				
+					}
+				</script>
+			</td>
+			<td height="50" colspan="6" align="center">
+				<script>
+				if(systemErrorInfo != 0 || systemError != 0)
+				{
+					document.write("-<br/>");
+				}
+				else
+				{
+					if(iduErrorInfo == 0){//실내기
+						if(langType == LANG_TYPE_KOR){
+							document.write("정상 작동"); //<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Normal Operation");
+						}
+					}
+					else if(iduErrorInfo == 1){//실내기
+						if(langType == LANG_TYPE_KOR){
+							document.write("점검 필요<br/>");	// 170802_added_FDD_review // <!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Need Inspection<br/>");
+						}
+						 for (i = 0; i < 64; i++){
+							if (iduEevErrorArray[i] == "1"){
+								document.write("IDU "+(i+1)+", ");
+							}
+						}
+					}
+					else if(iduErrorInfo == 2){//실내기
+						if(langType == LANG_TYPE_KOR){
+							document.write("판단불가<br/>"); // <!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Not Measured<br/>");
+						}
+						 for (i = 0; i < 64; i++){
+							if (iduEevErrorArray[i] == "1"){
+								document.write("IDU "+(i+1)+", ");
+							}
+						}
+					}
+					else{
+						if(langType == LANG_TYPE_KOR){
+							document.write("판단불가<br/>"); // <!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("Not Measured<br/>");
+						}
+						 for (i = 0; i < 64; i++){
+							if (iduEevErrorArray[i] == "1"){
+								document.write("IDU "+(i+1)+", ");
+							}
+						}
+					}
+				}
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td height="18"  colspan="18" align="left"><span class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("*위 결과 항목 중 하나라도 정상이 아닐경우, 다른 항목들의 결과에도 영향을 받을 수 있습니다. 문제되는 항목 수정 후 재검사바랍니다.<br/>");
+						textValuePrint("*AHU가 연결된 조합의 경우 냉매량 판단 결과가 정확하지 않을 수 있습니다.<br/>");
+						textValuePrint("*정상적으로 시운전이 종료되더라도, 조건에 따라 '냉매량 판단불가'를 표시할 수 있습니다.");
+					}
+					else{
+						textValuePrint("*Each Result is affected by the results of other items. After modifying the problem , please recheck.<br/>");
+						textValuePrint("*When AHU is connected, calculated refrigerant amount may be inaccurate.<br/>");
+						textValuePrint("*Even if the test run is completed normally, depending on the condition, the refrigerant amount judgement result may be displayed as 'not measured'.");
+					}
+				</script>
+				</span><!-- LANG TYPE DONE-->
+				<p class="table_subtitle">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("Cycle 요약");
+					}
+					else{
+						textValuePrint("Cycle Summary");
+					}
+				</script>
+				</p></td><!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td width="77" rowspan="2" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("항목");
+					}
+					else{
+						textValuePrint("Item");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td height="20" colspan="4" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외기1");
+					}
+					else{
+						textValuePrint("ODU1");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td height="20" colspan="4" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외기2");
+					}
+					else{
+						textValuePrint("ODU2");
+					}
+				</script>					
+				</td><!-- LANG TYPE DONE-->
+			<td height="20" colspan="4" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외기3");
+					}
+					else{
+						textValuePrint("ODU3");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td height="20" colspan="4" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외기4");
+					}
+					else{
+						textValuePrint("ODU4");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="146" rowspan="2" align="center" bgcolor="#c40452"
+				class="w-text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("판단기준");
+					}
+					else{
+						textValuePrint("Criterion for Judgement");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최소");
+					}
+					else{
+						textValuePrint("Minimum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최대");
+					}
+					else{
+						textValuePrint("Maximum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("평균");
+					}
+					else{
+						textValuePrint("Average");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("합부");
+					}
+					else{
+						textValuePrint("Judgement");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최소");
+					}
+					else{
+						textValuePrint("Minimum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최대");
+					}
+					else{
+						textValuePrint("Maximum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("평균");
+					}
+					else{
+						textValuePrint("Average");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("합부");
+					}
+					else{
+						textValuePrint("Judgement");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최소");
+					}
+					else{
+						textValuePrint("Minimum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최대");
+					}
+					else{
+						textValuePrint("Maximum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("평균");
+					}
+					else{
+						textValuePrint("Average");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("합부");
+					}
+					else{
+						textValuePrint("Judgement");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최소");
+					}
+					else{
+						textValuePrint("Minimum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("최대");
+					}
+					else{
+						textValuePrint("Maximum");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("평균");
+					}
+					else{
+						textValuePrint("Average");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+			<td width="79" height="20" align="center" bgcolor="#e6e7e8"
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("합부");
+					}
+					else{
+						textValuePrint("Judgement");
+					}
+				</script>
+			</td><!-- LANG TYPE DONE-->
+		</tr>
+		<tr>
+			<td height="30" align="center" bgcolor="#808284" class="w-text"><p
+				class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("고압");
+					}
+					else{
+						textValuePrint("High Pressure");
+					}
+				</script>
+				<br /> <!-- LANG TYPE DONE-->
+				<script>
+					if (pressureUnit == PRESSURE_UNIT_KPA) {
+						document.write("( kPa )");	
+					}else{
+						document.write("( psi )");
+					}
+				</script>
+			</p></td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(masterHighPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(masterHighPressureMax);
+				</script>
+				</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(masterHighPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave1HighPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave1HighPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave1HighPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave2HighPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave2HighPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave2HighPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave3HighPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave3HighPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave3HighPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+					<script>
+						if (pressureUnit == PRESSURE_UNIT_KPA) {
+							document.write("1600~3300kPa");
+						}else{
+							document.write(kpaToPsi(1600)+"~"+kpaToPsi(3300)+" psi");
+						}
+					</script>
+					<br />
+					(Cool/Heat)
+				</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text">
+				<p class="w_text">
+					<script>
+						if(langType == LANG_TYPE_KOR){
+							textValuePrint("저압");
+						}
+						else{
+							textValuePrint("Low Pressure");
+						}
+					</script>
+					<br /> <!-- LANG TYPE DONE-->
+				<script>
+					if (pressureUnit == PRESSURE_UNIT_KPA) {
+						document.write("( kPa )");	
+					}else{
+						document.write("( psi )");
+					}
+				</script>
+			</p>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(masterLowPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(masterLowPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(masterLowPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave1LowPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave1LowPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave1LowPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave2LowPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave2LowPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave2LowPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave3LowPressureMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave3LowPressureMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					pressureValuePrint(slave3LowPressureAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+					<script>
+						if (pressureUnit == PRESSURE_UNIT_KPA) {
+							document.write("650~1200kPa(Cool)<br/>");	
+							document.write("200~1000kPa(Heat)");	
+						} else {
+							document.write(kpaToPsi(650)+"~"+kpaToPsi(1200)+" psi<br/>");
+							document.write(kpaToPsi(200)+"~"+kpaToPsi(1000)+" psi");
+						}
+					</script>
+				</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+					class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("실외 EEV<br/>개도");
+					}
+					else{
+						textValuePrint("ODU EEV<br/>pulse");
+					}
+				</script>
+					<!-- LANG TYPE DONE-->
+				</p></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterEEVMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterEEVMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterEEVAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1EEVMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1EEVMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1EEVAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2EEVMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2EEVMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2EEVAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3EEVMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3EEVMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3EEVAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">-</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+				class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("토출과열도");
+					}
+					else{
+						textValuePrint("Discharge SH");
+					}
+				</script>
+				<br /> <!-- LANG TYPE DONE-->
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("( °C )" )	
+					} else {
+						document.write("( °F )" )	
+					}
+				</script>
+			</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(masterDischargeSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave1DischargeSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave2DischargeSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave3DischargeSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center">
+				<p class="b_text">
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("10 ~ 50°C");	
+					} else {
+						document.write("50.0 ~ 122.0°F" )	
+					}
+				</script>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+				class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("흡입과열도");
+					}
+					else{
+						textValuePrint("Suction SH");
+					}
+				</script>
+				<br /> <!-- LANG TYPE DONE-->
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("( °C )" )	
+					} else {
+						document.write("( °F )" )	
+					}
+				</script>
+			</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(masterSutionSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave1SutionSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave2SutionSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave3SutionSHAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("0.5 ~ 30°C");	
+					} else {
+						document.write("32.9 ~ 86.0°F" )	
+					}
+				</script>
+			</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+				class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("과냉도");
+					}
+					else{
+						textValuePrint("Subcool");
+					}
+				</script>
+				<br/> <!-- LANG TYPE DONE-->
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("( °C )" )	
+					} else {
+						document.write("( °F )" )	
+					}
+				</script>
+				
+			</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(masterSuperCoolAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave1SuperCoolAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave2SuperCoolAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+				tempRateValuePrint(slave3SuperCoolAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("0.5 ~ 20°C");	
+					} else {
+						document.write("32.9 ~ 68.0°F")	
+					}
+				</script>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td height="30" align="center" bgcolor="#808284" class="w-text"><p
+					class="w_text">
+					<script>
+						if(langType == LANG_TYPE_KOR){
+							textValuePrint("인버터1<br />토출온도");
+						}
+						else{
+							textValuePrint("INV1<br />Discharge");
+						}
+					</script><!-- LANG TYPE DONE-->
+					<script>
+						if (tempUnit == TEMP_UNIT_C) {
+							document.write("(°C)" )	
+						} else {
+							document.write("(°F)" )	
+						}
+					</script>
+				</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(masterINV1DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(slave1INV1DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(slave2INV1DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(slave3INV1DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+				<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("50 ~ 110°C");	
+					} else {
+						document.write(cTof(50)+"~"+cTof(110)+"°F" )	
+					}
+				</script>
+				</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+					class="w_text">
+					<script>
+						if(langType == LANG_TYPE_KOR){
+							textValuePrint("인버터2<br />토출온도");
+						}
+						else{
+							textValuePrint("INV2<br />Discharge");
+						}
+					</script><!-- LANG TYPE DONE-->
+					<script>
+						if (tempUnit == TEMP_UNIT_C) {
+							document.write("(°C)" )	
+						} else {
+							document.write("(°F)" )	
+						}
+					</script>
+				</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(masterINV2DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(slave1INV2DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(slave2INV2DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					tempValuePrint(slave3INV2DichargeTempAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+					<script>
+					if (tempUnit == TEMP_UNIT_C) {
+						document.write("50 ~ 110°C");	
+					} else {
+						document.write(cTof(50)+"~"+cTof(110)+"°F" )	
+					}
+				</script>
+					</p></td>
+		</tr>
+		<tr>    
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+				class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						document.write("입력전압<br />( V )"); //<!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write("Input Voltage<br />( V )");
+					}
+				</script>
+			</p></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1InputVoltageMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1InputVoltageMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1InputVoltageAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1InputVoltageMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1InputVoltageMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1InputVoltageAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1InputVoltageMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1InputVoltageMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1InputVoltageAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1InputVoltageMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1InputVoltageMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1InputVoltageAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+			<script>
+					document.write("323~437V(380V)<br />187~253V(220V)");
+			</script>
+			</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+				class="w_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						document.write("입력전류<br />( A )"); //<!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write("Input Current<br />( A )");
+					}
+				</script>
+			</p></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1InputCurrentMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1InputCurrentMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1InputCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1InputCurrentMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1InputCurrentMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1InputCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1InputCurrentMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1InputCurrentMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1InputCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1InputCurrentMin);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1InputCurrentMax);
+				</script>
+			</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1InputCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+			<script>
+					document.write("30A↓(380/460V Large Comp.)<br />22A↓(380/460V Small Comp.)<br />49A↓(220V Large Comp.)<br />33A↓(220V Small Comp.)");
+			</script>
+					</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+					class="w_text">
+					<script>
+						if(langType == LANG_TYPE_KOR){
+							document.write("인버터1<br />상전류<br />( A )"); //<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("INV1<br />phase Current<br />( A )");
+						}
+					</script>
+				</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV1PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV1PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV1PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV1PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+			<script>
+					document.write("28A↓(380/460V Large Comp.)<br />20A↓(380/460V Small Comp.)<br />49A↓(220V Large Comp.)<br />33A↓(220V Small Comp.)");
+			</script>
+					</p></td>
+		</tr>
+		<tr>
+			<td height="35" align="center" bgcolor="#808284" class="w-text"><p
+					class="w_text">
+					<script>
+						if(langType == LANG_TYPE_KOR){
+							document.write("인버터2<br />상전류<br />( A )"); //<!-- LANG TYPE DONE-->
+						}
+						else{
+							document.write("INV2<br />phase Current<br />( A )");
+						}
+					</script>
+				</p></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(masterINV2PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave1INV2PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave2INV2PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">-</td>
+			<td width="79" height="35" align="center">
+				<script>
+					numberValuePrint(slave3INV2PhaseCurrentAvg);
+				</script>
+			</td>
+			<td width="79" height="35" align="center"></td>
+			<td height="35" align="center"><p class="b_text">
+			<script>
+				document.write("28A↓(380/460V Large Comp.)<br />20A↓(380/460V Small Comp.)<br />49A↓(220V Large Comp.)<br />33A↓(220V Small Comp.)");
+			</script>
+					</p></td>
+		</tr>
+		<tr>
+
+			<td height="20" colspan="18" align="left" class="주의"><span
+				class="b_text">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("*판단기준의 의미는 결과가 아닌 이 값을 벗어난 경우 Error로 판정할 수 있음을 의미하며, 벗어나더라도 Cycle 및 설치환경을 고려하여 재확인 해보실 것을 권장합니다.");
+					}
+					else{
+						textValuePrint("*Criterion for judgement stands for the boundaries to decide error condition for normal operating conditons.");
+						textValuePrint("<br/>Therefore, even if it displays an error signal, it is recommended to re-confirm the results based on the physical behavior of air-conditioning and refrigeration system.");
+					}
+				</script>
+			</span> <!-- LANG TYPE DONE-->
+                                        <p class="table_subtitle">
+				<script>
+					if(langType == LANG_TYPE_KOR){
+						textValuePrint("모델명 및 제번");
+					}
+					else{
+						textValuePrint("Model Name and Serial Number");
+					}
+				</script>
+				</p></td><!-- LANG TYPE DONE-->
+		</tr>
+	</table>
+<!-- 신규 제번항목 -->
+<table width="100" height="100px" border="1px solid black" style="font-size: smaller;">
+	<tbody>
+		<script>
+			var div = 4;
+			document.write('<tr>');
+			for (var i = 0; i < div ; i++)
+			{
+				if(langType == LANG_TYPE_KOR){
+					document.write('<td width="5" height="20" align="center" bgcolor="#c40452" class="w-text">항목</td>'); // <!-- LANG TYPE DONE-->
+				}
+				else{
+					document.write('<td width="5" height="20" align="center" bgcolor="#c40452" class="w-text">Item</td>');
+				}
+				document.write('<td width="79" height="20" align="center" bgcolor="#c40452" class="w-text">Model name</td>');
+				document.write('<td width="79" height="20" align="center" bgcolor="#c40452" class="w-text">Serial number</td>');
+			}
+			document.write('</tr>');
+
+		</script>
+		<tr>
+			<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">M</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(ModelNameM);
+				</script>
+			</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(SerialNumberM);
+				</script>
+			</td>
+
+			<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">S1</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(ModelNameS1);
+				</script>
+			</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(SerialNumberS1);
+				</script>
+			</td>
+
+			<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">S2</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(ModelNameS2);
+				</script>
+			</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(SerialNumberS2);
+				</script>
+			</td>
+
+			<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">S3</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(ModelNameS3);
+				</script>
+			</td>
+			<td height="20" align="center">
+				<script>
+					textValuePrint(SerialNumberS3);
+				</script>
+			</td>
+
+		</tr>
+	</tbody>
+</table>
+<br>
+<table width="100" height="100px" border="1px solid black" style="font-size: smaller;">
+	<tbody>
+		<script>
+			if(iduNumber > 0){
+				document.write('<tr>');
+				for (var i = 0; i < div ; i++)
+				{
+					if(langType == LANG_TYPE_KOR){
+						document.write('<td width="5" height="20" align="center" bgcolor="#c40452" class="w-text">항목</td>'); // <!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write('<td width="5" height="20" align="center" bgcolor="#c40452" class="w-text">Item</td>');
+					}
+					document.write('<td width="79" height="20" align="center" bgcolor="#c40452" class="w-text">Model name</td>');
+					document.write('<td width="79" height="20" align="center" bgcolor="#c40452" class="w-text">Serial number</td>');
+				}
+				document.write('</tr>');
+
+				for (var i = 0; i < iduNumber/div-1 ; i++) {
+					document.write('<tr>');
+					for (var j = 0; j < div; j++) {
+						document.write('<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">');
+						document.write("IDU " + (div*i + j + 1));
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write(IduModelNameArray[div*i + j]);
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write(IduSerialNumArray[div*i + j]);
+						document.write('</td>');
+					}
+					document.write('</tr>');
+				}
+					document.write('<tr>');
+					var remIduNum = iduNumber%div;
+					if(remIduNum == 0) remIduNum = div;
+					for (var i = 0; i < remIduNum ; i++) {
+						document.write('<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">');
+						document.write("IDU " + (iduNumber - remIduNum + i + 1));
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write(IduModelNameArray[iduNumber - remIduNum + i]);
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write(IduSerialNumArray[iduNumber - remIduNum + i]);
+						document.write('</td>');
+					}
+					for (var i = 0; i < div - remIduNum; i++) {
+						document.write('<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">');
+						document.write("");
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write("");
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write("");
+						document.write('</td>');
+					}
+					document.write('</tr>');
+			}
+		</script>
+	</tbody>
+</table>
+<br>
+<table width="100" height="100px" border="1px solid black" style="font-size: smaller;">
+	<tbody>
+		<script>
+		if(hruNumber > 0){
+			document.write('<tr>');
+				for (var i = 0; i < div ; i++)
+				{
+					if(langType == LANG_TYPE_KOR){
+						document.write('<td width="5" height="20" align="center" bgcolor="#c40452" class="w-text">항목</td>'); // <!-- LANG TYPE DONE-->
+					}
+					else{
+						document.write('<td width="5" height="20" align="center" bgcolor="#c40452" class="w-text">Item</td>');
+					}
+					document.write('<td width="79" height="20" align="center" bgcolor="#c40452" class="w-text">Model name</td>');
+					document.write('<td width="79" height="20" align="center" bgcolor="#c40452" class="w-text">Serial number</td>');
+				}
+				document.write('</tr>');
+
+				for (var i = 0; i < hruNumber/div-1 ; i++) {
+					document.write('<tr>');
+					for (var j = 0; j < div; j++) {
+						document.write('<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">');
+						document.write("HR " + (div*i + j + 1));
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write(HruModelNameArray[div*i + j]);
+						document.write('</td>');
+						document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+						document.write(HruSerialNumArray[div*i + j]);
+						document.write('</td>');
+					}
+					document.write('</tr>');
+				}
+				var remHruNum = hruNumber%div;
+				if(remHruNum == 0) remHruNum = div;
+				document.write('<tr>');
+				for (var i = 0; i < remHruNum ; i++) {
+					document.write('<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">');
+					document.write("HR " + (hruNumber - remHruNum + i + 1));
+					document.write('</td>');
+					document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+					document.write(HruModelNameArray[hruNumber - remHruNum + i]);
+					document.write('</td>');
+					document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+					document.write(HruSerialNumArray[hruNumber - remHruNum + i]);
+					document.write('</td>');
+				}
+				for (var i = 0; i < div - remHruNum; i++) {
+					document.write('<td height="20" align="center" bgcolor="#e6e7e8" class="b_text">');
+					document.write("");
+					document.write('</td>');
+					document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+					document.write("");
+					document.write('</td>');
+					document.write('<td width="50" height="10px" style="border=1px solid black; text-align:center;">');
+					document.write("");
+					document.write('</td>');
+				}
+				document.write('</tr>');
+			}
+		</script>
+	</tbody>
+</table>
+</body>
+</html>
