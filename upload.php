@@ -112,10 +112,11 @@ if ($uploadOk == 0) {
           //echo $matches[0];
           //echo $pattern . " = " . $key  . "</br>";
           //to JSON
-          if ($type == "int" || $type == "arrInt") {
-            echo '"' . $pattern . '": ' . '"' . $key . '"'  . ",</br>";
-            $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . '"' . $key . '"'  . ",\n";
-          } else {
+          if ($type == "arrInt" | $type == "arrStr" | $type == "arr") {
+            echo '"' . $pattern . '": ' . '[' . $key . ']'  . ",</br>";
+            $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . '[' . $key . ']'  . ",\n";
+          }
+          else {
             echo '"' . $pattern . '": ' . $key  . ",</br>";
             $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . $key  . ",\n";
           }
@@ -485,7 +486,7 @@ if ($uploadOk == 0) {
       $ModelNameS3 = get_script_var($result, "ModelNameS3", "str");
       $LGMVVersionString = get_script_var($result, "LGMVVersionString", "str");
     }
-
+    $jsontext = substr($jsontext, 0, -2);
     $jsontext .= "}";
 
     $jsonfile = fopen("uploads/result.json", "w") or die("Unable to open file!");
