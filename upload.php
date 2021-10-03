@@ -1,8 +1,8 @@
 <?php
-
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ERROR); //E_ALL
+include 'minifyjs.php';
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -44,10 +44,18 @@ if ($uploadOk == 0) {
 
     echo "Initialization...</br>";
 
-    // $DOM = new DOMDocument;
-    // $DOM->loadHTML($text);
+    // $dom = new DOMDocument;
+    // $dom->loadHTML($html);
+    // 
 
+    // $scriptNodes = $dom->getElementsByTagName('script');
+    // foreach ($scriptNodes as $scriptNode) {
+    //     $scriptNode->nodeValue = preg_replace($pattern, '$8$9${10}', $scriptNode->nodeValue);
+    // }
+
+    // $html = $dom->saveHTML();
     $dom = new DOMDocument();
+    //$text = minifyJavascript($text);
     $dom->loadHTML($text);
 
     $xpath = new DOMXPath($dom);
@@ -55,35 +63,54 @@ if ($uploadOk == 0) {
 
     echo "Parsing...</br>";
 
+
+    //$output = minifyJavascript($inp);
+    //$pattern = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
+    //$output = preg_replace($pattern, '', $output);
+    //echo nl2br($output);
+
     function get_script_var($result, $pattern, $type)
     {
       $key = null;
       foreach ($result as $currScriptTag) {
         $currScriptContent = $currScriptTag->nodeValue;
 
-        if ($type == "int")
-          $matchFound = preg_match('/var ' . $pattern . ' = (.*);/', $currScriptContent, $matches);
-        else if ($type == "str")
-          $matchFound = preg_match('/var ' . $pattern . ' = new String\((.*)\);/', $currScriptContent, $matches);
-        else if ($type == "num")
-          $matchFound = preg_match('/var ' . $pattern . ' = new Number\((.*)\);/', $currScriptContent, $matches);
-        else if ($type == "arr")
-          $matchFound = preg_match('/var ' . $pattern . ' = new Array\((.*)\);/', $currScriptContent, $matches);
-        else if ($type == "arrStr")
-          $matchFound = preg_match('/var ' . $pattern . ' = new Array\((.*)\);/', $currScriptContent, $matches);
-        else if ($type == "flt")
-          $matchFound = preg_match('/var ' . $pattern . ' = new parseFloat\((.*)\);/', $currScriptContent, $matches);
-        else
-          return null;
+        //Remove comments
+        $currScriptContent = preg_replace('/#.*/','',preg_replace('#//.*#','',preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#','',($currScriptContent))));
+        // echo "we got it";
+        // echo $currScriptContent;
+        // exit();
+        //Remove line breaks
+        $currScriptContent = trim(preg_replace('/\s+/', ' ', $currScriptContent));
 
+
+        if ($type == "int")
+          $matchFound = preg_match('/var ' . $pattern . ' = (.*?);/', $currScriptContent, $matches);
+        else if ($type == "str")
+          $matchFound = preg_match('/var ' . $pattern . ' = new String\((.*?)\);/', $currScriptContent, $matches);
+        else if ($type == "num")
+          $matchFound = preg_match('/var ' . $pattern . ' = new Number\((.*?)\);/', $currScriptContent, $matches);
+        else if ($type == "arr")
+          $matchFound = preg_match('/var ' . $pattern . ' = new Array\((.*?)\);/', $currScriptContent, $matches);
+        else if ($type == "arrStr")
+          $matchFound = preg_match('/var ' . $pattern . ' = new Array\((.*?)\);/', $currScriptContent, $matches);
+        else if ($type == "arrInt")
+          $matchFound = preg_match('/var ' . $pattern . ' = new Array\((.*?)\);/', $currScriptContent, $matches);
+        else if ($type == "flt")
+          $matchFound = preg_match('/var ' . $pattern . ' = new parseFloat\((.*?)\);/', $currScriptContent, $matches);
+        else {
+          echo "Oh no! $pattern returns null!";
+          return null;
+        }
         if ($matchFound) {
+
           /*
             * $matches[0] will contain the whole line like var key = "..." 
             * $matches[1] just contains the value of the var
             */
           $key = $matches[1];
-
-          //echo $key . PHP_EOL;
+          //echo $matches[0];
+          echo $pattern . " = " . $key  . "</br>";
         }
       }
       //return "Making a cup of $type.\n";
@@ -93,6 +120,8 @@ if ($uploadOk == 0) {
     // Report 1 (LGMV 1.0.9 Report Parse)
     $lgmvVersion = get_script_var($result, "lgmvVersion", "str");
     if ($lgmvVersion != null) {
+
+      echo "LGMV 1.0.9 Report Detected</br>";
       $TEMP_UNIT_F = get_script_var($result, "TEMP_UNIT_F", "int");
       $TEMP_UNIT_C = get_script_var($result, "TEMP_UNIT_C", "int");
       $PRESSURE_UNIT_KPA = get_script_var($result, "PRESSURE_UNIT_KPA", "int");
@@ -260,6 +289,7 @@ if ($uploadOk == 0) {
     }
     //LGMV Version 1.0.8
     else {
+      echo "LGMV 1.0.8 Report Detected</br>";
 
       $TEMP_UNIT_F = get_script_var($result, "TEMP_UNIT_F", "int");
       $TEMP_UNIT_C = get_script_var($result, "TEMP_UNIT_C", "int");
@@ -297,7 +327,6 @@ if ($uploadOk == 0) {
       $odu3Version = get_script_var($result, "odu3Version", "str");
       $odu4Version = get_script_var($result, "odu4Version", "str");
 
-
       $oduNumber = get_script_var($result, "oduNumber", "str");
       $iduNumber = get_script_var($result, "iduNumber", "str");
       $hruNumber = get_script_var($result, "hruNumber", "str");
@@ -329,7 +358,6 @@ if ($uploadOk == 0) {
       $IduSerialNumArray = get_script_var($result, "IduSerialNumArray", "arrStr");
       $HruModelNameArray = get_script_var($result, "HruModelNameArray", "arrStr");
       $HruSerialNumArray = get_script_var($result, "HruSerialNumArray", "arrStr");
-
 
       $masterHighPressureMin = get_script_var($result, "masterHighPressureMin", "num");
       $masterHighPressureMax = get_script_var($result, "masterHighPressureMax", "num");
@@ -381,7 +409,6 @@ if ($uploadOk == 0) {
       $slave2INV2DichargeTempAvg = get_script_var($result, "slave2INV2DichargeTempAvg", "num");
       $slave3INV2DichargeTempAvg = get_script_var($result, "slave3INV2DichargeTempAvg", "num");
 
-
       $masterINV1InputVoltageMin = get_script_var($result, "masterINV1InputVoltageMin", "num");
       $masterINV1InputVoltageMax = get_script_var($result, "masterINV1InputVoltageMax", "num");
       $masterINV1InputVoltageAvg = get_script_var($result, "masterINV1InputVoltageAvg", "num");
@@ -414,12 +441,10 @@ if ($uploadOk == 0) {
       $slave3INV1InputCurrentMax = get_script_var($result, "slave3INV1InputCurrentMax", "num");
       $slave3INV1InputCurrentAvg = get_script_var($result, "slave3INV1InputCurrentAvg", "num");
 
-
       $masterINV1PhaseCurrentAvg = get_script_var($result, "masterINV1PhaseCurrentAvg", "num");
       $slave1INV1PhaseCurrentAvg = get_script_var($result, "slave1INV1PhaseCurrentAvg", "num");
       $slave2INV1PhaseCurrentAvg = get_script_var($result, "slave2INV1PhaseCurrentAvg", "num");
       $slave3INV1PhaseCurrentAvg = get_script_var($result, "slave3INV1PhaseCurrentAvg", "num");
-
 
       $masterINV2PhaseCurrentAvg = get_script_var($result, "masterINV2PhaseCurrentAvg", "num");
       $slave1INV2PhaseCurrentAvg = get_script_var($result, "slave1INV2PhaseCurrentAvg", "num");
