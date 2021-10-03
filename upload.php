@@ -63,12 +63,16 @@ if ($uploadOk == 0) {
 
     echo "Parsing...</br>";
 
-
     //$output = minifyJavascript($inp);
     //$pattern = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
     //$output = preg_replace($pattern, '', $output);
     //echo nl2br($output);
 
+
+
+    $jsontext = "{ ";
+
+    echo '{ "Report": {</br>';
     function get_script_var($result, $pattern, $type)
     {
       $key = null;
@@ -76,10 +80,7 @@ if ($uploadOk == 0) {
         $currScriptContent = $currScriptTag->nodeValue;
 
         //Remove comments
-        $currScriptContent = preg_replace('/#.*/','',preg_replace('#//.*#','',preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#','',($currScriptContent))));
-        // echo "we got it";
-        // echo $currScriptContent;
-        // exit();
+        $currScriptContent = preg_replace('/#.*/', '', preg_replace('#//.*#', '', preg_replace('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#', '', ($currScriptContent))));
         //Remove line breaks
         $currScriptContent = trim(preg_replace('/\s+/', ' ', $currScriptContent));
 
@@ -103,14 +104,21 @@ if ($uploadOk == 0) {
           return null;
         }
         if ($matchFound) {
-
           /*
             * $matches[0] will contain the whole line like var key = "..." 
             * $matches[1] just contains the value of the var
             */
           $key = $matches[1];
           //echo $matches[0];
-          echo $pattern . " = " . $key  . "</br>";
+          //echo $pattern . " = " . $key  . "</br>";
+          //to JSON
+          if ($type == "int" || $type == "arrInt") {
+            echo '"' . $pattern . '": ' . '"' . $key . '"'  . ",</br>";
+            $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . '"' . $key . '"'  . ",\n";
+          } else {
+            echo '"' . $pattern . '": ' . $key  . ",</br>";
+            $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . $key  . ",\n";
+          }
         }
       }
       //return "Making a cup of $type.\n";
@@ -477,6 +485,12 @@ if ($uploadOk == 0) {
       $ModelNameS3 = get_script_var($result, "ModelNameS3", "str");
       $LGMVVersionString = get_script_var($result, "LGMVVersionString", "str");
     }
+
+    $jsontext .= "}";
+
+    $jsonfile = fopen("uploads/result.json", "w") or die("Unable to open file!");
+    fwrite($jsonfile, $jsontext);
+    fclose($jsonfile);
 
     echo "Finished. </br>";
     echo $text;
