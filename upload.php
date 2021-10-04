@@ -8,15 +8,16 @@ $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$filename = strtolower(pathinfo($target_file, PATHINFO_FILENAME));
 
 // Check file validation
 if (isset($_POST["submit"])) {
   $check = true;
   if ($check !== false) {
-    echo "Report check OK</br>";
+    echo "Report check... [OK]</br>";
     $uploadOk = 1;
   } else {
-    echo "Report check FAIL</br>";
+    echo "Report check... [FAIL]</br>";
     $uploadOk = 0;
   }
 }
@@ -42,16 +43,7 @@ if ($uploadOk == 0) {
     echo "The file " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " has been uploaded.</br>";
     $text = file_get_contents($target_file);
 
-    echo "Initialization...</br>";
-
-    // $dom = new DOMDocument;
-    // $dom->loadHTML($html);
-    // 
-
-    // $scriptNodes = $dom->getElementsByTagName('script');
-    // foreach ($scriptNodes as $scriptNode) {
-    //     $scriptNode->nodeValue = preg_replace($pattern, '$8$9${10}', $scriptNode->nodeValue);
-    // }
+    echo "Initialization... ";
 
     // $html = $dom->saveHTML();
     $dom = new DOMDocument();
@@ -60,8 +52,8 @@ if ($uploadOk == 0) {
 
     $xpath = new DOMXPath($dom);
     $result = $xpath->query('//script');
+    echo "[OK]</br>";
 
-    echo "Parsing...</br>";
 
     //$output = minifyJavascript($inp);
     //$pattern = '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/';
@@ -72,7 +64,6 @@ if ($uploadOk == 0) {
 
     $jsontext = "{ ";
 
-    echo '{ "Report": {</br>';
     function get_script_var($result, $pattern, $type)
     {
       $key = null;
@@ -111,13 +102,13 @@ if ($uploadOk == 0) {
           $key = $matches[1];
           //echo $matches[0];
           //echo $pattern . " = " . $key  . "</br>";
-          //to JSON
+
+          //format to JSON
           if ($type == "arrInt" | $type == "arrStr" | $type == "arr") {
-            echo '"' . $pattern . '": ' . '[' . $key . ']'  . ",</br>";
+            //echo '"' . $pattern . '": ' . '[' . $key . ']'  . ",</br>";
             $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . '[' . $key . ']'  . ",\n";
-          }
-          else {
-            echo '"' . $pattern . '": ' . $key  . ",</br>";
+          } else {
+            //echo '"' . $pattern . '": ' . $key  . ",</br>";
             $GLOBALS['jsontext'] .= '"' . $pattern . '": ' . $key  . ",\n";
           }
         }
@@ -126,11 +117,16 @@ if ($uploadOk == 0) {
       return $key;
     }
 
+    echo "Parsing... ";
     // Report 1 (LGMV 1.0.9 Report Parse)
     $lgmvVersion = get_script_var($result, "lgmvVersion", "str");
-    if ($lgmvVersion != null) {
+    $LGMVVersionString = get_script_var($result, "LGMVVersionString", "str");
+    if ($lgmvVersion == null && $LGMVVersionString == null) {
+      echo "[Unknown LGMV Report Version]";
+      exit();
+    } else if ($lgmvVersion != null) {
 
-      echo "LGMV 1.0.9 Report Detected</br>";
+      echo "[LGMV 1.0.9 Report Detected]";
       $TEMP_UNIT_F = get_script_var($result, "TEMP_UNIT_F", "int");
       $TEMP_UNIT_C = get_script_var($result, "TEMP_UNIT_C", "int");
       $PRESSURE_UNIT_KPA = get_script_var($result, "PRESSURE_UNIT_KPA", "int");
@@ -298,7 +294,7 @@ if ($uploadOk == 0) {
     }
     //LGMV Version 1.0.8
     else {
-      echo "LGMV 1.0.8 Report Detected</br>";
+      echo "[LGMV 1.0.8 Report Detected]";
 
       $TEMP_UNIT_F = get_script_var($result, "TEMP_UNIT_F", "int");
       $TEMP_UNIT_C = get_script_var($result, "TEMP_UNIT_C", "int");
@@ -489,11 +485,51 @@ if ($uploadOk == 0) {
     $jsontext = substr($jsontext, 0, -2);
     $jsontext .= "}";
 
-    $jsonfile = fopen("uploads/result.json", "w") or die("Unable to open file!");
+    echo "[OK]</br>";
+
+    echo "Writing JSON... ";
+    //TODO: Use json_encode instead from scratch (but need to really parse the arrays from html)
+    $jsonfile = fopen("uploads/" . $filename . ".json", "w") or die("Unable to open file!");
     fwrite($jsonfile, $jsontext);
     fclose($jsonfile);
 
-    echo "Finished. </br>";
+    echo "[OK]</br>";
+
+    $jsonfile = "uploads/" . $filename . ".json";
+    echo 'JSON created in <a href="uploads/' . $filename . '.json">here</a></br>';
+    echo "Upload to CouchDB... ";
+
+    //Send to couchDB
+    $ch = curl_init();
+
+    //curl_setopt($ch, CURLOPT_URL, 'http://127.0.0.1:5984/customers/' . $customer['username']);
+    curl_setopt($ch, CURLOPT_URL, 'http://127.0.0.1:5984/lgmv/' . $filename);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT'); /* or PUT */
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsontext);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      'Content-type: application/json',
+      'Accept: */*'
+    ));
+
+    curl_setopt($ch, CURLOPT_USERPWD, 'admin:admin');
+
+    $response = curl_exec($ch);
+
+    curl_close($ch);
+    echo $response . "</br>";
+    $response = json_decode($response, true);
+
+    if ($response['error'] == "conflict")
+      echo "Upload skipped. Report already exist. </br>";
+    else
+      echo "Upload [OK] </br>";
+
+    echo "Finish. </br></br>";
+
+    echo '<form action="http://pc.derrylab.com:5984/_utils/"><input type="submit" value="Go to CouchDB" /></form>';
+    echo '<form action="http://pc.derrylab.com"><input type="submit" value="Upload another Report" /></form>';
+    echo '<form action="'. $jsonfile .'"><input type="submit" value="View JSON" /></form>';
     echo $text;
   } else {
     echo "Sorry, there was an error uploading report.</br>";
