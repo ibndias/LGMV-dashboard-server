@@ -3,13 +3,18 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ERROR); //E_ALL
 include 'minifyjs.php';
+header("Content-Type: text/html; charset=UTF-8");
+setlocale(LC_ALL, 'en_KR.UTF-8' ); 
+
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 $filename = strtolower(pathinfo($target_file, PATHINFO_FILENAME));
-
+// echo $filename . "</br>";
+// $filename = urldecode($filename);
+// echo $filename . "</br>";
 // Check file validation
 if (isset($_POST["submit"])) {
   $check = true;
@@ -527,8 +532,8 @@ if ($uploadOk == 0) {
 
     echo "Finish. </br></br>";
 
-    echo '<form action="http://pc.derrylab.com:5984/_utils/"><input type="submit" value="Go to CouchDB" /></form>';
-    echo '<form action="http://pc.derrylab.com"><input type="submit" value="Upload another Report" /></form>';
+    echo '<form action="http://vps1.derrylab.com:5984/_utils/"><input type="submit" value="Go to CouchDB" /></form>';
+    echo '<form action="http://vps1.derrylab.com/lgmv"><input type="submit" value="Upload another Report" /></form>';
     echo '<form action="'. $jsonfile .'"><input type="submit" value="View JSON" /></form>';
     echo $text;
   } else {
