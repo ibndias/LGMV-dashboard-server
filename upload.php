@@ -2,7 +2,7 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ERROR); //E_ALL
-include 'minifyjs.php';
+//include 'minifyjs.php';
 header("Content-Type: text/html; charset=UTF-8");
 setlocale(LC_ALL, 'en_KR.UTF-8' ); 
 
